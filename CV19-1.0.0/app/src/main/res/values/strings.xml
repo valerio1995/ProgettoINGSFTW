@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CV19</string>
+
+    <string-array name="Filtri">
+        <item>NULL</item>
+        <item>tariffa</item>
+        <item>nome</item>
+        <item>valutazione</item>
+    </string-array>
+
+    <string-array name="Punteggio">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+</resources>
