@@ -24,7 +24,6 @@ public class ConnectionClass {
 
         try{
             Class.forName(classs);
-
             conn = DriverManager.getConnection(url,user,pass);
         }catch (SQLException se){
             Log.e("ERR1: ", se.getMessage());

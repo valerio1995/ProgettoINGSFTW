@@ -206,6 +206,7 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
 
     public void openHome(){
         Intent intent = new Intent(this, Home.class);
+        intent.putExtra("username",username);
         Log.d(TAG,"RICERCA  openhome");
         startActivity(intent);
 

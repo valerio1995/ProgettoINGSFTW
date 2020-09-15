@@ -143,7 +143,7 @@ int i=0;
             if(con == null){
                 z = "Controlla la connessione ad internet...";
             }else{
-                String query = "select * from recensioni where nomeStruttura= '"+nomeStruttura+"' ";
+                String query = "select * from recensioni where visibile=1 and nomeStruttura= '"+nomeStruttura+"' ";
                 Statement stat = con.createStatement();
                 rs=stat.executeQuery(query);
                 while(rs.next()){
