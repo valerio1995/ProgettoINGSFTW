@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -31,7 +32,8 @@ import static android.widget.Toast.*;
 public class TabRecensioni extends Fragment {
     private static final String TAG = "TabRecensioni";
     Context c;
-    //TextView testo;
+    TextView sommaTextView;
+    TextView mediaTextView;
     String nomeStruttura;
     String ricerca;
     String username;
@@ -42,6 +44,7 @@ public class TabRecensioni extends Fragment {
     LinearLayout valutazione;
     LinearLayout date;
     LinearLayout autore;
+    int somma=0;//n
 
 int i=0;
     String testoRecensione;
@@ -64,8 +67,6 @@ int i=0;
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         connectionClass=new ConnectionClass();
-        Log.d(TAG, "onCreate: finito");
-
     }
 
     @Override
@@ -76,10 +77,13 @@ int i=0;
         autore = view.findViewById(R.id.l_testo1);
         valutazione = view.findViewById(R.id.l_testo2);
         date = view.findViewById(R.id.l_testo3);
+        sommaTextView=view.findViewById(R.id.textTesto2);
+        mediaTextView=view.findViewById(R.id.mediaPuntiStruttura);
 
-        //testo=view.findViewById(R.id.textView78);
         creaListaRecensioni();
-        Log.d(TAG," username "+username);
+        calcolaNumeroRecensioni();
+        calcolaMediaRecensioni();
+
         buttonAggiungiRecensione=(Button) view.findViewById(R.id.buttonAggiungiRecensione);
 
         if(username!=null){
@@ -90,19 +94,15 @@ int i=0;
                 public void onClick(View v)
                 {
                     addRecensione();
-
                 }
             });
         }else{
-
             buttonAggiungiRecensione.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-
                     Toast.makeText(getContext(), "Devi registrarti per lasciare una recensione!!", Toast.LENGTH_LONG).show();
-
                 }
             });
         }
@@ -113,12 +113,73 @@ int i=0;
             @Override
             public void onClick(View v)
             {
-                openHome();
+                if(ricerca!=null){
+                    openRicerca();
+                }else{
+                    openHome();
+                }
             }
         });
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_recensioni, container, false);
         return view;
+    }
+
+    private void calcolaMediaRecensioni() {
+        String z;
+        double media=0;//n
+        String m;
+
+        try{
+            Connection con = connectionClass.CONN();
+
+            if(con == null){
+                z = "Controlla la connessione ad internet...";
+            }else{
+                String query = "select Sum(valutazione) as media from recensioni where visibile=1 and nomeStruttura= '"+nomeStruttura+"' ";
+                Statement stat = con.createStatement();
+                rs=stat.executeQuery(query);
+                while(rs.next()){
+                    media = rs.getInt("media");
+                }
+                media=media/somma;
+                m=String.valueOf(media).toString();
+                mediaTextView.setText("Punteggio medio: "+m.substring(0,3));
+            }
+            z=" avvenuta con successo";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            e.getMessage();
+            e.getCause();
+        }
+    }
+
+    private void calcolaNumeroRecensioni() {
+        String z;
+
+        String m;
+
+        try{
+            Connection con = connectionClass.CONN();
+
+            if(con == null){
+                z = "Controlla la connessione ad internet...";
+            }else{
+                String query = "select count(*) as somma from recensioni where visibile=1 and nomeStruttura= '"+nomeStruttura+"' ";
+                Statement stat = con.createStatement();
+                rs=stat.executeQuery(query);
+                while(rs.next()){
+                    somma = rs.getInt("somma");
+                }
+                m= String.valueOf(somma).toString();
+                sommaTextView.setText("Numero recensioni: "+m);
+                }
+                z=" avvenuta con successo";
+            } catch (SQLException e) {
+            e.printStackTrace();
+            e.getMessage();
+            e.getCause();
+        }
     }
 
     public void addRecensione(){
@@ -128,12 +189,20 @@ int i=0;
         startActivity(i);
     }
 
-    public void openHome(){
+    public void openRicerca(){
         Intent i = new Intent(this.getContext(),Ricerca.class);
         i.putExtra("ricerca", ricerca);
         i.putExtra("username", username);
         startActivity(i);
     }
+
+    public void openHome(){
+        Intent i = new Intent(this.getContext(),Home.class);
+        i.putExtra("username", username);
+        startActivity(i);
+    }
+
+
     public void creaListaRecensioni(){
         String z;
         int dim = 0;
@@ -169,7 +238,7 @@ int i=0;
 
                 for(i=0; i < dim; i++){
                     final TextView testo= new TextView(this.getContext());
-                    testo.setText(listaRecensioni_autore.get(i));
+                    testo.setText(listaRecensioni_titolo.get(i));
 
                     testo.setLayoutParams(lp2);
                     autore.addView(testo);
@@ -181,7 +250,8 @@ int i=0;
                     valutazione.addView(testo2);
 
                     final TextView testo3= new TextView(this.getContext());
-                    testo3.setText(listaRecensioni_data.get(i));
+                    testo3.setText(listaRecensioni_autore.get(i));
+
 
                     testo3.setLayoutParams(lp2);
                     date.addView(testo3);
@@ -190,7 +260,7 @@ int i=0;
                     testo4.setText(listaRecensioni_testo.get(i));
 
                     final TextView testo5= new TextView(this.getContext());
-                    testo5.setText(listaRecensioni_titolo.get(i));
+                    testo5.setText(listaRecensioni_data.get(i));
 
 
 
@@ -201,12 +271,18 @@ int i=0;
                             Intent intent = new Intent(TabRecensioni.this.getContext(), Recensione.class);
                             //passo la recensione alla pagina successiva
                             testoRecensione=testo4.getText().toString();
-                            titoloRecensione=testo5.getText().toString();
+                            titoloRecensione=testo.getText().toString();
+                            dataRecensione=testo5.getText().toString();
+                            String autore=testo3.getText().toString();
+                            String valutazione=testo2.getText().toString();
                             intent.putExtra("testo", testoRecensione);
                             intent.putExtra("titolo", titoloRecensione);
                             intent.putExtra("struttura", nomeStruttura);
                             intent.putExtra("username", username);
                             intent.putExtra("ricerca",ricerca);
+                            intent.putExtra("valutazione",valutazione);
+                            intent.putExtra("autore",autore);
+                            intent.putExtra("data",dataRecensione);
 
 
 

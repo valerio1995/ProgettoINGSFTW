@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private static final String TAG = "Ricerca";
-    TextView tv;
+    //TextView tv;
     ConnectionClass connectionClass;
     ResultSet rs;
     String username;
@@ -51,8 +51,8 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
         username = getIntent().getStringExtra("username");
 
         lv=(LinearLayout)findViewById(R.id.tabella);
-        tv = (TextView) findViewById(R.id.textView44);
-        tv.setText(ricerca);
+        //tv = (TextView) findViewById(R.id.textView44);
+        //tv.setText(ricerca);
         lText1 = findViewById(R.id.l_text1);
         lText2= findViewById(R.id.l_text2);
         cerca = findViewById(R.id.buttonIndietro1);

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/TextFirstName"
@@ -24,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cerca"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -47,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -58,7 +61,8 @@
         android:id="@+id/buttonMappa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MAPPA"
+        android:text="Vicino a te"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintLeft_toLeftOf="parent"

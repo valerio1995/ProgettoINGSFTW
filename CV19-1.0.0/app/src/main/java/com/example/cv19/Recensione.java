@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,9 +15,16 @@ public class Recensione extends AppCompatActivity {
     String username;
     String ricerca;
     String titoloRecensione;
+    String dataRecensione;
+    String autore;
+    String valutazione;
     Button bottoneInd;
-    TextView testo;
-    TextView titolo;
+    TextView testoTextView;
+    TextView titoloTextView;
+    TextView autoreTextView;
+    TextView dataTextView;
+    TextView valutazioneTextView;
+    TextView nomeStrutturaTextView;
 
     private static final String TAG = "Recensione";
 
@@ -32,11 +38,26 @@ public class Recensione extends AppCompatActivity {
         nomeStruttura = getIntent().getStringExtra("struttura");
         username=getIntent().getStringExtra("username");
         ricerca=getIntent().getStringExtra("ricerca");
-        testo = findViewById(R.id.testoRecensione);
-        titolo = findViewById(R.id.titoloRecensione1);
+        valutazione=getIntent().getStringExtra("valutazione");
+        autore=getIntent().getStringExtra("autore");
+        dataRecensione=getIntent().getStringExtra("data");
+
+
+        testoTextView = findViewById(R.id.testoRecensione);
+        titoloTextView = findViewById(R.id.titoloRecensione1);
         bottoneInd = findViewById(R.id.buttonIndietro);
-        titolo.setText(titoloRecensione);
-        testo.setText(testoRecensione);
+        valutazioneTextView=findViewById(R.id.testoValutazione);
+        autoreTextView=findViewById(R.id.nomeAutore2);
+        dataTextView=findViewById(R.id.dataRecensione21);
+        nomeStrutturaTextView=findViewById(R.id.nomeStruttura2);
+
+        nomeStrutturaTextView.setText(nomeStruttura);
+        titoloTextView.setText(titoloRecensione);
+        testoTextView.setText(testoRecensione);
+        dataTextView.setText("Data: "+dataRecensione);
+        valutazioneTextView.setText("Valutazione: "+valutazione+" su 5.");
+        autoreTextView.setText("Autore: "+autore);
+
 
         bottoneInd.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -4,36 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TabRecensioni">
+    tools:context=".TabRecensioni"
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/textTesto2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recensioni struttura:"
-        android:textSize="30dp"
+        android:text="Numero recensioni: 235"
+        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintVertical_bias="0.022" />
+
+    <TextView
+        android:id="@+id/mediaPuntiStruttura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Punteggio medio: 4.5"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081" />
 
     <LinearLayout
         android:id="@+id/tabella1"
-        android:layout_width="366dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_width="285dp"
+        android:layout_height="210dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.526">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/ns_items"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="361dp"
+            android:layout_height="188dp">
 
             <LinearLayout
                 android:id="@+id/l_text"
@@ -77,15 +91,15 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Autore"
+        android:text="Titolo"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <TextView
         android:id="@+id/textView78"
@@ -96,20 +110,20 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView10"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.397"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginLeft="176dp"
-        android:text="Data"
+        android:layout_marginStart="168dp"
+        android:layout_marginLeft="168dp"
+        android:text="Autore"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -118,31 +132,33 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <Button
         android:id="@+id/buttonInd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
         android:text="indietro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.783" />
 
     <Button
         android:id="@+id/buttonAggiungiRecensione"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
         android:text="Aggiungi recensione"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.783" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
