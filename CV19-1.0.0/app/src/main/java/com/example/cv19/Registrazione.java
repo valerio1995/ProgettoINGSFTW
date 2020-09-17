@@ -1,7 +1,6 @@
 package com.example.cv19;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -27,6 +25,15 @@ public class Registrazione extends AppCompatActivity {
     EditText email;
     EditText password;
     EditText confirmpass;
+
+    //
+    EditText username;
+    EditText cognome;
+
+
+
+
+
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
     CheckBox checkAnonimo;
@@ -40,15 +47,20 @@ public class Registrazione extends AppCompatActivity {
 
         buttonAnnulla = (Button) findViewById(R.id.ButtonAnnulla);
         buttonRegistra = (Button) findViewById(R.id.ButtonRegistra);
-        nome = (EditText) findViewById(R.id.editTextNome);
+        nome = (EditText) findViewById(R.id.editTextNome11);
         email = (EditText) findViewById(R.id.editTextEmail);
         password = (EditText) findViewById(R.id.editTextPassword);
         confirmpass = (EditText) findViewById(R.id.editTextConferma);
         progressDialog = new ProgressDialog(this);
         checkAnonimo = (CheckBox) findViewById(R.id.checkBoxAnonimo);
 
-        connectionClass = new ConnectionClass();
+//
+        username = (EditText) findViewById(R.id.editTextUsername2);
+        nome = (EditText) findViewById(R.id.editTextNome11);
+        cognome = (EditText) findViewById(R.id.editTextCognome);
 
+
+        connectionClass = new ConnectionClass();
         buttonAnnulla.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -68,16 +80,21 @@ public class Registrazione extends AppCompatActivity {
     public void openMain(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
     }
 
     public class Registra extends AsyncTask<String,String,String>{
 
         //Covnerto a stringa
-        String namestr = nome.getText().toString();
+        String nomestr = nome.getText().toString();
         String mail = email.getText().toString();
         String pass = password.getText().toString();
         String confirm = confirmpass.getText().toString();
+
+        //
+        String userstr = username.getText().toString();
+        String cognomestr = cognome.getText().toString();
+
+
         String z = "";
         int anonimo = 0;
         boolean isSuccess=false;
@@ -92,7 +109,7 @@ public class Registrazione extends AppCompatActivity {
         protected String doInBackground(String... params){
 
             //Controllo se i campi sono vuoti
-            if(namestr.trim().equals("") || mail.trim().equals("") || pass.trim().equals("") || confirm.trim().equals("")){
+            if(userstr.trim().equals("") || mail.trim().equals("") || pass.trim().equals("") || confirm.trim().equals("")){
                 z = "Riempi tutti i campi...";
             }else{
 
@@ -109,7 +126,7 @@ public class Registrazione extends AppCompatActivity {
                                 anonimo = 1;
                             }
 
-                            String query = "insert into utenti values (NULL,'"+namestr+"','"+mail+"','"+pass+"',"+anonimo+")";
+                            String query = "insert into utenti values (NULL, '"+ nomestr +"', '"+ cognomestr +"','"+ userstr +"','"+mail+"','"+pass+"',"+anonimo+")";
 
                             Statement stat = con.createStatement();
                             stat.executeUpdate(query);
@@ -117,12 +134,13 @@ public class Registrazione extends AppCompatActivity {
                             z="Registrazione avvenuta con successo, ti verrà inviata una mail di conferma";
                             isSuccess = true;
 
-                            //Invio della mail
+                            /*Invio della mail
                             if(Mail.SendMail(mail) == 1){
                                 Toast.makeText(Registrazione.this, "Mail inviata con successo!", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Registrazione.this, "Invio mail non riuscito...", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
+                            openMain();
 
                         }
                     }catch (Exception ex){

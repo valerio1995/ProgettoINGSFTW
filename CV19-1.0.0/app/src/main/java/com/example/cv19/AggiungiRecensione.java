@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
     EditText testo;
     EditText title;
     ConnectionClass connectionClass;
+    ResultSet rs;
 
 
     @Override
@@ -94,6 +96,77 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
 
     }
 
+
+    public int Anonimato(String username){
+        int anonimato=0;
+        try{
+            Connection con = connectionClass.CONN();
+            //controlli sulla connessione
+            if(con == null){
+                Log.d(TAG, "Controlla la connessione ad internet");
+            }else{
+                String query = "select * from utenti where user= '"+username+"'";
+                Statement stat = con.createStatement();
+                rs=stat.executeQuery(query);
+                while(rs.next()){
+                    anonimato = rs.getInt("anonimo");
+                }
+            }
+        }catch (Exception ex){
+            Log.d(TAG, " exception mess:"+ex.getMessage());
+            Log.d(TAG, " exception mess:"+ex.getCause());
+        }
+
+        return anonimato;
+    }
+
+    public String takeName(String username){
+        String nome = null;
+        try{
+            Connection con = connectionClass.CONN();
+            //controlli sulla connessione
+            if(con == null){
+                Log.d(TAG, "Controlla la connessione ad internet");
+            }else{
+                String query = "select * from utenti where user= '"+username+"'";
+                Statement stat = con.createStatement();
+                rs=stat.executeQuery(query);
+                while(rs.next()){
+                    nome = rs.getString("nome");
+                }
+            }
+        }catch (Exception ex){
+            Log.d(TAG, " exception mess:"+ex.getMessage());
+            Log.d(TAG, " exception mess:"+ex.getCause());
+        }
+
+        return nome;
+    }
+
+    public String takeSurname(String username){
+        String cognome = null;
+        try{
+            Connection con = connectionClass.CONN();
+            //controlli sulla connessione
+            if(con == null){
+                Log.d(TAG, "Controlla la connessione ad internet");
+            }else{
+                String query = "select * from utenti where user= '"+username+"'";
+                Statement stat = con.createStatement();
+                rs=stat.executeQuery(query);
+                while(rs.next()){
+                    cognome = rs.getString("cognome");
+                }
+            }
+        }catch (Exception ex){
+            Log.d(TAG, " exception mess:"+ex.getMessage());
+            Log.d(TAG, " exception mess:"+ex.getCause());
+        }
+
+        return cognome;
+    }
+
+
     public class inviaRecensione extends AsyncTask<String,String,String> {
 
         //Covnerto a stringa
@@ -111,32 +184,40 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
             if(testoRecensione.trim().equals("") || titolo.trim().equals("")){
                 z = "Riempi tutti i campi...";
             }else{
-                    try{
-                        Log.d(TAG, "DENTRO ");
-                        Connection con = connectionClass.CONN();
+                try{
+                    Log.d(TAG, "DENTRO ");
+                    Connection con = connectionClass.CONN();
 
-                        //controlli sulla connessione
-                        if(con == null){
-                            z = "Controlla la connessione ad internet...";
+                    //controlli sulla connessione
+                    if(con == null){
+                        z = "Controlla la connessione ad internet...";
+                    }else{
+                        //Creo l'oggetto data
+                        Date data = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+                        //Converto la data a stringa
+                        String strData = sdf.format(data);
+
+                        if(Anonimato(username) != 1){
+                            String query = "insert into recensioni values (NULL,'"+titolo+"','"+nomeStruttura+"','"+testoRecensione+"',"+valutazione+",'"+takeName(username)+" "+takeSurname(username)+"','"+strData+"',"+0+")";
+
+                            Log.d(TAG, "FATTA ");
+                            Statement stat = con.createStatement();
+                            stat.executeUpdate(query);
                         }else{
-                            //Creo l'oggetto data
-                            Date data = new Date();
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-                            //Converto la data a stringa
-                            String strData = sdf.format(data);
-
                             String query = "insert into recensioni values (NULL,'"+titolo+"','"+nomeStruttura+"','"+testoRecensione+"',"+valutazione+",'"+username+"','"+strData+"',"+0+")";
 
                             Log.d(TAG, "FATTA ");
                             Statement stat = con.createStatement();
                             stat.executeUpdate(query);
-
-                            z="Recensione inviata con successo ed in attesa di conferma da parte dello staff. Riceverai una mail di vconferma nel momento della pubblicazione.";
                         }
-                    }catch (Exception ex){
-                        z = "Exception: " + ex;
-                        Log.d(TAG, "Exception: "+ex);
+
+                        z="Recensione inviata con successo ed in attesa di conferma da parte dello staff. Riceverai una mail di vconferma nel momento della pubblicazione.";
                     }
+                }catch (Exception ex){
+                    z = "Exception: " + ex;
+                    Log.d(TAG, "Exception: "+ex);
+                }
             }
             return z;
         }

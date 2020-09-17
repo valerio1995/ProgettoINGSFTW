@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -15,11 +16,20 @@ public class TabDettagli extends Fragment {
     Button buttonIndietro;
     String ricerca;
     String username;
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
     ImageView immagine;
+    TextView descrizioneTextView;
+    TextView indirizzoTextView;
+    TextView numeroTelefonicoTextView;
 
-    public TabDettagli(String r,String u){
+    public TabDettagli(String r,String u,String d,String i,String n){
             this.ricerca=r;
             this.username=u;
+            this.descrizione=d;
+            this.indirizzo=i;
+            this.numeroTelefonico=n;
     }
 
     @Override
@@ -29,8 +39,16 @@ public class TabDettagli extends Fragment {
                 container, false);
 
         immagine= view.findViewById(R.id.imageView23);
-
         immagine.setImageResource(R.drawable.hotel_lucia);
+        descrizioneTextView= view.findViewById(R.id.textView15);
+        indirizzoTextView=view.findViewById(R.id.textView18);
+        numeroTelefonicoTextView=view.findViewById(R.id.textView19);
+
+        descrizioneTextView.setText(descrizione);
+        indirizzoTextView.setText(indirizzo);
+        numeroTelefonicoTextView.setText(numeroTelefonico);
+
+
         buttonIndietro = (Button)view.findViewById(R.id.buttonIndietro23);
         buttonIndietro.setOnClickListener(new View.OnClickListener()
         {

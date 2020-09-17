@@ -3,6 +3,7 @@ package com.example.cv19;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,11 +29,21 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
     String ricerca;
     String nomeHotel="";
     String prezzoHotel="";
+
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
+
     LinearLayout lv;
     Button cerca;
     Button logout;
     ArrayList<String> listaStrutture_prezzo =new ArrayList<>();
     ArrayList<String> listaStrutture_nome = new ArrayList<>();
+    ArrayList<String> listaStrutture_indirizzo =new ArrayList<>();
+    ArrayList<String> listaStrutture_numero = new ArrayList<>();
+    ArrayList<String> listaStrutture_descrizione =new ArrayList<>();
+
+
     ArrayList<TextView> lista = new ArrayList<>();
     LinearLayout lText1;
     LinearLayout lText2;
@@ -150,8 +161,24 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
                 while(rs.next()){
                     nomeHotel=rs.getString("nome");
                     prezzoHotel=rs.getString("tariffa")+"€";
+
+                    descrizione=rs.getString("descrizione");
+                    numeroTelefonico=rs.getString("numeroTelefonico");
+                    indirizzo=rs.getString("indirizzo");
+
+
+
+
                     listaStrutture_nome.add(nomeHotel);
                     listaStrutture_prezzo.add(prezzoHotel);
+
+                    listaStrutture_indirizzo.add(indirizzo);
+                    listaStrutture_descrizione.add(descrizione);
+                    listaStrutture_numero.add(numeroTelefonico);
+
+
+
+
                     dim++;
                 }
 
@@ -173,15 +200,35 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
                     testo2.setLayoutParams(lp);
                     lText2.addView(testo2);
 
+
+                    final TextView testo3= new TextView(this);
+                    testo3.setText(listaStrutture_indirizzo.get(i));
+
+                    final TextView testo4= new TextView(this);
+                    testo4.setText(listaStrutture_descrizione.get(i));
+
+                    final TextView testo5= new TextView(this);
+                    testo5.setText(listaStrutture_numero.get(i));
+
                     /*Rendo il testo cliccabile*/
                     testo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(Ricerca.this, PaginaStruttura.class);
                             String name = testo.getText().toString();
+                            indirizzo=testo3.getText().toString();
+                            descrizione=testo4.getText().toString();
+                            numeroTelefonico=testo5.getText().toString();
+                            Log.d(TAG,"ciaoo"+descrizione);
                             intent.putExtra("username", username);
                             intent.putExtra("nomeStruttura", name);
                             intent.putExtra("ricerca", ricerca);
+
+                            intent.putExtra("indirizzo", indirizzo);
+                            intent.putExtra("descrizione",descrizione);
+                            intent.putExtra("numero", numeroTelefonico);
+
+
                             startActivity(intent);
                         }
                     });
@@ -265,8 +312,18 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
                 while(rs.next()){
                     nomeHotel=rs.getString("nome");
                     prezzoHotel=rs.getString("tariffa")+"€";
+
+                    descrizione=rs.getString("descrizione");
+                    numeroTelefonico=rs.getString("numeroTelefonico");
+                    indirizzo=rs.getString("indirizzo");
+
                     listaStrutture_nome.add(nomeHotel);
                     listaStrutture_prezzo.add(prezzoHotel);
+
+                    listaStrutture_indirizzo.add(indirizzo);
+                    listaStrutture_descrizione.add(descrizione);
+                    listaStrutture_numero.add(numeroTelefonico);
+
                      dim++;
                 }
 
@@ -285,15 +342,31 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
                     testo2.setLayoutParams(lp);
                     lText2.addView(testo2);
 
+                    final TextView testo3= new TextView(this);
+                    testo3.setText(listaStrutture_indirizzo.get(i));
+
+                    final TextView testo4= new TextView(this);
+                    testo4.setText(listaStrutture_descrizione.get(i));
+
+                    final TextView testo5= new TextView(this);
+                    testo5.setText(listaStrutture_numero.get(i));
+
 
                     testo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(Ricerca.this, PaginaStruttura.class);
                             String name = testo.getText().toString();
+                            indirizzo=testo3.getText().toString();
+                            descrizione=testo4.getText().toString();
+                            numeroTelefonico=testo5.getText().toString();
                             intent.putExtra("username", username);
                             intent.putExtra("nomeStruttura", name);
                             intent.putExtra("ricerca", ricerca);
+
+                            intent.putExtra("indirizzo", indirizzo);
+                            intent.putExtra("descrizione",descrizione);
+                            intent.putExtra("numero", numeroTelefonico);
 
                             startActivity(intent);
                         }

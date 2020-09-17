@@ -202,7 +202,6 @@ int i=0;
         startActivity(i);
     }
 
-
     public void creaListaRecensioni(){
         String z;
         int dim = 0;

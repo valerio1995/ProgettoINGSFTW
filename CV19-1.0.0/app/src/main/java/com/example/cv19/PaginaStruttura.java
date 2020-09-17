@@ -44,6 +44,9 @@ public class PaginaStruttura extends AppCompatActivity {
     String nomeStruttura;
     String username;
     String ricerca;
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
     ConnectionClass connectionClass;
     ResultSet rs;
 
@@ -55,13 +58,17 @@ public class PaginaStruttura extends AppCompatActivity {
         nomeStruttura = getIntent().getStringExtra("nomeStruttura");
         username = getIntent().getStringExtra("username");
         ricerca= getIntent().getStringExtra("ricerca");
+        descrizione= getIntent().getStringExtra("descrizione");
+        indirizzo=getIntent().getStringExtra("indirizzo");
+        numeroTelefonico=getIntent().getStringExtra("numero");
+
         testo = (TextView)findViewById(R.id.nomeStruttura);
         testo.setText(nomeStruttura);
 
         viewPager = findViewById(R.id.view_pager);
         connectionClass = new ConnectionClass();
         tabRecensioni = new TabRecensioni(nomeStruttura,username,ricerca);
-        tabDettagli = new TabDettagli(ricerca,username);
+        tabDettagli = new TabDettagli(ricerca,username,descrizione,indirizzo,numeroTelefonico);
         PaginaStruttura.MyPagerAdapter myPagerAdapter = new PaginaStruttura.MyPagerAdapter(getSupportFragmentManager(),1);
         viewPager.setAdapter(myPagerAdapter);
     }
