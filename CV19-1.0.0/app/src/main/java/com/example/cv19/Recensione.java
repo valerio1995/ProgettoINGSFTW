@@ -18,6 +18,9 @@ public class Recensione extends AppCompatActivity {
     String dataRecensione;
     String autore;
     String valutazione;
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
     Button bottoneInd;
     TextView testoTextView;
     TextView titoloTextView;
@@ -41,7 +44,9 @@ public class Recensione extends AppCompatActivity {
         valutazione=getIntent().getStringExtra("valutazione");
         autore=getIntent().getStringExtra("autore");
         dataRecensione=getIntent().getStringExtra("data");
-
+        descrizione=getIntent().getStringExtra("descrizione");;
+        indirizzo=getIntent().getStringExtra("indirizzo");;
+        numeroTelefonico=getIntent().getStringExtra("numero");;
 
         testoTextView = findViewById(R.id.testoRecensione);
         titoloTextView = findViewById(R.id.titoloRecensione1);
@@ -72,6 +77,11 @@ public class Recensione extends AppCompatActivity {
         intent.putExtra("nomeStruttura", nomeStruttura);
         intent.putExtra("username", username);
         intent.putExtra("ricerca", ricerca);
+
+        intent.putExtra("descrizione", descrizione);
+        intent.putExtra("indirizzo", indirizzo);
+        intent.putExtra("numero", numeroTelefonico);
+
         startActivity(intent);
 
     }

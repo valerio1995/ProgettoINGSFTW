@@ -37,6 +37,9 @@ public class TabRecensioni extends Fragment {
     String nomeStruttura;
     String ricerca;
     String username;
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
     Button buttonAggiungiRecensione;
     Button buttonIndietro;
     ConnectionClass connectionClass;
@@ -57,10 +60,13 @@ int i=0;
     ArrayList<String> listaRecensioni_testo = new ArrayList<>();
     ArrayList<String> listaRecensioni_titolo = new ArrayList<>();
 
-    public TabRecensioni(String s,String x,String z){
+    public TabRecensioni(String s,String x,String z,String d,String i,String n){
         this.nomeStruttura=s;
         this.username=x;
         this.ricerca=z;
+        this.descrizione=d;
+        this.indirizzo=i;
+        this.numeroTelefonico=n;
     }
 
     @Override
@@ -274,6 +280,7 @@ int i=0;
                             dataRecensione=testo5.getText().toString();
                             String autore=testo3.getText().toString();
                             String valutazione=testo2.getText().toString();
+
                             intent.putExtra("testo", testoRecensione);
                             intent.putExtra("titolo", titoloRecensione);
                             intent.putExtra("struttura", nomeStruttura);
@@ -283,6 +290,9 @@ int i=0;
                             intent.putExtra("autore",autore);
                             intent.putExtra("data",dataRecensione);
 
+                            intent.putExtra("descrizione", descrizione);
+                            intent.putExtra("indirizzo", indirizzo);
+                            intent.putExtra("numero", numeroTelefonico);
 
 
                             startActivity(intent);

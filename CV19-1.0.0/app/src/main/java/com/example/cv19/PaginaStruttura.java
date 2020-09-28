@@ -67,7 +67,7 @@ public class PaginaStruttura extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager);
         connectionClass = new ConnectionClass();
-        tabRecensioni = new TabRecensioni(nomeStruttura,username,ricerca);
+        tabRecensioni = new TabRecensioni(nomeStruttura,username,ricerca,descrizione,indirizzo,numeroTelefonico);
         tabDettagli = new TabDettagli(ricerca,username,descrizione,indirizzo,numeroTelefonico);
         PaginaStruttura.MyPagerAdapter myPagerAdapter = new PaginaStruttura.MyPagerAdapter(getSupportFragmentManager(),1);
         viewPager.setAdapter(myPagerAdapter);

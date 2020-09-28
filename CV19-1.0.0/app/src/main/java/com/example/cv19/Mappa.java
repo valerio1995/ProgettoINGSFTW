@@ -108,21 +108,21 @@ public class Mappa extends AppCompatActivity {
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
                         int clicker = 0;
-                            @Override
+                        @Override
                         public boolean onMarkerClick(Marker marker){
-                                clicker = clicker + 1;
-                                if(marker.getTitle().compareTo("I am here") != 0 && clicker == 2 ){
-                                    clicker = 0;
-                                    Intent intent = new Intent(Mappa.this, PaginaStruttura.class);
-                                    //passo il nome della struttura
-                                    intent.putExtra("username", username);
-                                    intent.putExtra("nomeStruttura", marker.getTitle());
-                                    startActivity(intent);
-                                }
-                                if(clicker >= 2){
-                                    clicker = 0;
-                                }
-                                return false;
+                            clicker = clicker + 1;
+                            if(marker.getTitle().compareTo("I am here") != 0 && clicker == 2 ){
+                                clicker = 0;
+                                Intent intent = new Intent(Mappa.this, PaginaStruttura.class);
+                                //passo il nome della struttura
+                                intent.putExtra("username", username);
+                                intent.putExtra("nomeStruttura", marker.getTitle());
+                                startActivity(intent);
+                            }
+                            if(clicker >= 2){
+                                clicker = 0;
+                            }
+                            return false;
                         }
                     });
                 }
