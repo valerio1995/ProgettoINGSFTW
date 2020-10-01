@@ -30,6 +30,10 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
     String valutazione;
     String username;
     String nomeStruttura;
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
+    String ricerca;
     Button bottoneInvia;
     Button chiudi;
     EditText testo;
@@ -50,6 +54,10 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
         title = findViewById(R.id.titoloRecensioneAdd);
         username = getIntent().getStringExtra("username");
         nomeStruttura = getIntent().getStringExtra("nomeStruttura");
+        descrizione=getIntent().getStringExtra("descrizione");
+        indirizzo=getIntent().getStringExtra("indirizzo");
+        numeroTelefonico=getIntent().getStringExtra("numero");
+        ricerca=getIntent().getStringExtra("ricerca");
         spinner = findViewById(R.id.spinnerPunteggio);
         connectionClass = new ConnectionClass();
         chiudi = findViewById(R.id.buttonChiudi);
@@ -74,13 +82,16 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
                 openDettagli();
             }
         });
-
         }
 
         public void openDettagli(){
             Intent i = new Intent(this, PaginaStruttura.class);
             i.putExtra("username", username);
             i.putExtra("nomeStruttura", nomeStruttura);
+            i.putExtra("descrizione", descrizione);
+            i.putExtra("indirizzo",indirizzo);
+            i.putExtra("numero", numeroTelefonico);
+            i.putExtra("ricerca", ricerca);
 
             startActivity(i);
         }

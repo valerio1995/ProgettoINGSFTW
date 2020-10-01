@@ -122,15 +122,23 @@ int i=0;
                 if(ricerca!=null){
                     openRicerca();
                 }else{
-                    openHome();
+                    if(username!=null){
+                        openHome();
+                    }else{
+                        openMain();
+                    }
                 }
             }
         });
+
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_recensioni, container, false);
         return view;
     }
-
+    public void openMain(){
+        Intent i = new Intent(this.getContext(),MainActivity.class);
+        startActivity(i);
+    }
     private void calcolaMediaRecensioni() {
         String z;
         double media=0;//n
@@ -192,6 +200,11 @@ int i=0;
         Intent i = new Intent(this.getContext(),AggiungiRecensione.class);
         i.putExtra("nomeStruttura", nomeStruttura);
         i.putExtra("username", username);
+        i.putExtra("ricerca", ricerca);
+        i.putExtra("descrizione", descrizione);
+        i.putExtra("indirizzo", indirizzo);
+        i.putExtra("numero",numeroTelefonico);
+
         startActivity(i);
     }
 

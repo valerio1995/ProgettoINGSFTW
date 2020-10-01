@@ -58,7 +58,12 @@ public class TabDettagli extends Fragment {
                 if(ricerca!=null){
                     openRicerca();
                 }else{
-                    openHome();
+
+                    if(username!=null){
+                        openHome();
+                    }else{
+                        openMain();
+                    }
                 }
             }
         });
@@ -66,6 +71,10 @@ public class TabDettagli extends Fragment {
         return view;
     }
 
+    public void openMain(){
+        Intent i = new Intent(this.getContext(),MainActivity.class);
+        startActivity(i);
+    }
     public void openRicerca(){
         Intent i = new Intent(this.getContext(),Ricerca.class);
         i.putExtra("ricerca", ricerca);

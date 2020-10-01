@@ -118,6 +118,8 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
         listaStrutture_nome.clear();
         listaStrutture_prezzo.clear();
     }
+
+    /*
     public int createList(ArrayList<String> lista1,LinearLayout ll){
         int isSuccess=0;
 
@@ -142,6 +144,8 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
 
         return isSuccess;
     }
+    */
+
     public int ordinaElementi(){
         String z;
         int dim = 0;
