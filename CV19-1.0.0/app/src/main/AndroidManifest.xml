@@ -37,7 +37,7 @@ package="com.example.cv19">
     -->
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyAx3sa-zpADAeLINbbVeGndwixf2g1QPLI" />
+        android:value="AIzaSyCYOIpS2IzSURbVjAZIe0hn8W441cNax9I" />
 
 
     <activity android:name=".AggiungiRecensione" />

@@ -37,13 +37,18 @@ public class Mappa extends AppCompatActivity {
 
     SupportMapFragment mapFragment;
     String username;
+    String descrizione;
+    String indirizzo;
+    String numeroTelefonico;
     FusedLocationProviderClient client;
     ConnectionClass connectionClass;
     ResultSet rs;
     ArrayList<Double> lista_latitudine = new ArrayList<>();
     ArrayList<Double> lista_longitudine = new ArrayList<>();
     ArrayList<String> lista_nomeStruttura = new ArrayList<>();
-
+    ArrayList<String> lista_descrizione = new ArrayList<>();
+    ArrayList<String> lista_indirizzo = new ArrayList<>();
+    ArrayList<String> lista_numeroTelefonico = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +90,12 @@ public class Mappa extends AppCompatActivity {
                     latitudine = rs.getDouble("latitudine");
                     longitudine = rs.getDouble("longitudine");
                     nomeStruttura = rs.getString("nome");
+                    descrizione=rs.getString("descrizione");
+                    indirizzo=rs.getString("indirizzo");
+                    numeroTelefonico=rs.getString("numeroTelefonico");
+                    lista_descrizione.add(descrizione);
+                    lista_indirizzo.add(indirizzo);
+                    lista_numeroTelefonico.add(numeroTelefonico);
                     lista_latitudine.add(latitudine);
                     lista_longitudine.add(longitudine);
                     lista_nomeStruttura.add(nomeStruttura);
@@ -97,6 +108,19 @@ public class Mappa extends AppCompatActivity {
                     Log.d(TAG, "1.Indice: "+i);
                     LatLng struttura = new LatLng(lista_latitudine.get(i), lista_longitudine.get(i));
                     //Crea marker di posizione
+
+
+
+
+                    final TextView testo4= new TextView(this);
+                    testo4.setText(lista_descrizione.get(i));
+
+                    final TextView testo5= new TextView(this);
+                    testo5.setText(lista_numeroTelefonico.get(i));
+
+                    //descrizione=lista_descrizione.get(i);
+                    //indirizzo=lista_indirizzo.get(i);
+                    // numeroTelefonico=lista_numeroTelefonico.get(i);
                     MarkerOptions other = new MarkerOptions().position(struttura).title(lista_nomeStruttura.get(i));
                     //Aggiungi marker su mappa
                     googleMap.addMarker(other);
@@ -113,10 +137,18 @@ public class Mappa extends AppCompatActivity {
                             clicker = clicker + 1;
                             if(marker.getTitle().compareTo("I am here") != 0 && clicker == 2 ){
                                 clicker = 0;
+
+
                                 Intent intent = new Intent(Mappa.this, PaginaStruttura.class);
+
                                 //passo il nome della struttura
                                 intent.putExtra("username", username);
                                 intent.putExtra("nomeStruttura", marker.getTitle());
+
+                                intent.putExtra("descrizione",lista_descrizione.get(Integer.parseInt(marker.getId().substring(1))));
+                                intent.putExtra("indirizzo",lista_indirizzo.get(Integer.parseInt(marker.getId().substring(1))));
+                                intent.putExtra("numero",lista_numeroTelefonico.get(Integer.parseInt(marker.getId().substring(1))));
+
                                 startActivity(intent);
                             }
                             if(clicker >= 2){
@@ -147,7 +179,7 @@ public class Mappa extends AppCompatActivity {
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(final Location location) {
-                if(location != null){
+                if(location == null){
                     //Sync map
                     mapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
