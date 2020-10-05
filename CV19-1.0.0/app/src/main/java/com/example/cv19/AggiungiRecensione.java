@@ -21,7 +21,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import Mail.Mail;
+
 
 public class AggiungiRecensione extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

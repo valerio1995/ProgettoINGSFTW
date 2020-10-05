@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import Mail.Mail;
+
 
 public class Registrazione extends AppCompatActivity {
 

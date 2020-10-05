@@ -108,10 +108,6 @@ public class Mappa extends AppCompatActivity {
                     Log.d(TAG, "1.Indice: "+i);
                     LatLng struttura = new LatLng(lista_latitudine.get(i), lista_longitudine.get(i));
                     //Crea marker di posizione
-
-
-
-
                     final TextView testo4= new TextView(this);
                     testo4.setText(lista_descrizione.get(i));
 
@@ -131,28 +127,22 @@ public class Mappa extends AppCompatActivity {
                     /*Rendo il marker cliccabile*/
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
-                        int clicker = 0;
+                        String markerCliccato="";
+
                         @Override
                         public boolean onMarkerClick(Marker marker){
-                            clicker = clicker + 1;
-                            if(marker.getTitle().compareTo("I am here") != 0 && clicker == 2 ){
-                                clicker = 0;
 
-
+                            if(marker.getTitle().compareTo("I am here") != 0 && marker.getTitle().compareTo(markerCliccato)==0){
                                 Intent intent = new Intent(Mappa.this, PaginaStruttura.class);
-
                                 //passo il nome della struttura
                                 intent.putExtra("username", username);
                                 intent.putExtra("nomeStruttura", marker.getTitle());
-
                                 intent.putExtra("descrizione",lista_descrizione.get(Integer.parseInt(marker.getId().substring(1))));
                                 intent.putExtra("indirizzo",lista_indirizzo.get(Integer.parseInt(marker.getId().substring(1))));
                                 intent.putExtra("numero",lista_numeroTelefonico.get(Integer.parseInt(marker.getId().substring(1))));
-
                                 startActivity(intent);
-                            }
-                            if(clicker >= 2){
-                                clicker = 0;
+                            }else{
+                                markerCliccato=marker.getTitle();
                             }
                             return false;
                         }

@@ -159,7 +159,7 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
 
                 clearList();
 
-                String query = "select * from strutture where citta= '"+ricerca+"' order by "+filtro+"";
+                String query = "select * from strutture where citta LIKE '%"+ricerca+"%'  order by "+filtro+"";
                 Statement stat = con.createStatement();
                 rs=stat.executeQuery(query);
                 while(rs.next()){
