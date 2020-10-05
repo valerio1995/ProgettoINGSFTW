@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 28, 2020 alle 15:50
+-- Creato il: Ott 05, 2020 alle 18:59
 -- Versione del server: 10.4.14-MariaDB
 -- Versione PHP: 7.2.33
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `cv19db`
 --
-CREATE DATABASE IF NOT EXISTS `cv19db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `cv19db`;
 
 -- --------------------------------------------------------
 
@@ -74,7 +72,9 @@ INSERT INTO `recensioni` (`id`, `titolo`, `nomeStruttura`, `testo`, `valutazione
 (7, 'o cess!!!', 'hotel rita', 'il bano era bianco', 2, 'asd', '14/13/2020', 1),
 (9, 'fantastico', 'hotel anguria', 'bellissimo super iper bla bla bla', 4, 'asd', '17/06/2020', 1),
 (10, 'bruttissimo', 'hotel anguria', 'non ci torno mai piu ', 2, 'francesco rossi', '17/07/2020', 1),
-(11, 'Entusiasmante!', 'hotel india', 'Era molto bello sembrava di stare in india.', 4, 'asd', '18/02/2020', 1);
+(11, 'Entusiasmante!', 'hotel india', 'Era molto bello sembrava di stare in india.', 4, 'asd', '18/02/2020', 1),
+(12, 'TOP', 'hotel india', 'mi sono divertito un sacco', 5, 'asd', '02/10/2020', 0),
+(13, 'DEludente', 'hotel anguria', 'Faceva troppo caldo', 3, 'asd', '02/11/2020', 0);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,8 @@ INSERT INTO `strutture` (`id`, `nome`, `citta`, `tariffa`, `descrizione`, `indir
 (1, 'hotel lucia', 'napoli', 35, 'Il nostro motto è fare sentire l\'ospite a casa sua.\r\nIl nostro Bed & Breakfast a Napoli , si trova su un attico panoramico al 10 piano in una zona molto attrattiva e strategica.\r\nSiamo a pochi minuti dal Lungomare Caracciolo e dalla Spiaggia.\r\n\r\n', 'via da qui 11', '33333333333', 40.830406, 14.195582),
 (2, 'hotel rita', 'napoli', 55, 'Il B&B è dotato di tutti i confort\r\nWIFI gatuito nelle camere e nelle aree comuni.\r\nSilenzioso\r\nTutte le camere con bagno interno\r\nAsciugacapelli\r\n', 'via dai binari 131', '222222222222', 40.830669, 14.194206),
 (3, 'hotel anguria', 'napoli', 45, 'ampia piscina ', 'via dei pastai 34', '55555555555', 40.830649, 40.830769),
-(5, 'hotel india', 'napoli', 450, 'molto esotico', 'via di abdulla 34', '66666666666', 40.705112, 14.515523);
+(5, 'hotel india', 'napoli', 450, 'molto esotico', 'via di abdulla 34', '66666666666', 40.705112, 14.515523),
+(6, 'Hotel Europa', 'salerno', 67, 'Ampio terrazzo, vista sul mare, piscina coperta.', 'via lepanto 8', '3453798610', 40.62731, 14.480951);
 
 -- --------------------------------------------------------
 
@@ -174,13 +175,13 @@ ALTER TABLE `amministratori`
 -- AUTO_INCREMENT per la tabella `recensioni`
 --
 ALTER TABLE `recensioni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT per la tabella `strutture`
 --
 ALTER TABLE `strutture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`
