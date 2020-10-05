@@ -114,9 +114,6 @@ public class Mappa extends AppCompatActivity {
                     final TextView testo5= new TextView(this);
                     testo5.setText(lista_numeroTelefonico.get(i));
 
-                    //descrizione=lista_descrizione.get(i);
-                    //indirizzo=lista_indirizzo.get(i);
-                    // numeroTelefonico=lista_numeroTelefonico.get(i);
                     MarkerOptions other = new MarkerOptions().position(struttura).title(lista_nomeStruttura.get(i));
                     //Aggiungi marker su mappa
                     googleMap.addMarker(other);
@@ -126,9 +123,7 @@ public class Mappa extends AppCompatActivity {
 
                     /*Rendo il marker cliccabile*/
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
-
                         String markerCliccato="";
-
                         @Override
                         public boolean onMarkerClick(Marker marker){
 

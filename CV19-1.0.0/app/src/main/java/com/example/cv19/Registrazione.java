@@ -15,8 +15,6 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.Statement;
 
-
-
 public class Registrazione extends AppCompatActivity {
 
     Button buttonAnnulla;
@@ -29,10 +27,6 @@ public class Registrazione extends AppCompatActivity {
     //
     EditText username;
     EditText cognome;
-
-
-
-
 
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
@@ -126,20 +120,18 @@ public class Registrazione extends AppCompatActivity {
                                 anonimo = 1;
                             }
 
+                            //Rendiamo il nome e cognome "normale"
+                            nomestr = normalizza_parola(nomestr);
+                            cognomestr = normalizza_parola(cognomestr);
+
                             String query = "insert into utenti values (NULL, '"+ nomestr +"', '"+ cognomestr +"','"+ userstr +"','"+mail+"','"+pass+"',"+anonimo+")";
 
                             Statement stat = con.createStatement();
                             stat.executeUpdate(query);
 
-                            z="Registrazione avvenuta con successo, ti verrà inviata una mail di conferma";
+                            z="Registrazione avvenuta con successo!";
                             isSuccess = true;
 
-                            /*Invio della mail
-                            if(Mail.SendMail(mail) == 1){
-                                Toast.makeText(Registrazione.this, "Mail inviata con successo!", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(Registrazione.this, "Invio mail non riuscito...", Toast.LENGTH_SHORT).show();
-                            }*/
                             openMain();
 
                         }
@@ -160,5 +152,9 @@ public class Registrazione extends AppCompatActivity {
             Toast.makeText(getBaseContext(), ""+z, Toast.LENGTH_LONG).show();
             progressDialog.hide();
         }
+    }
+
+    public String normalizza_parola(String str){
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }

@@ -21,8 +21,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-
 public class AggiungiRecensione extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "AggiungiRecensione";
@@ -82,19 +80,19 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
                 openDettagli();
             }
         });
-        }
+    }
 
-        public void openDettagli(){
-            Intent i = new Intent(this, PaginaStruttura.class);
-            i.putExtra("username", username);
-            i.putExtra("nomeStruttura", nomeStruttura);
-            i.putExtra("descrizione", descrizione);
-            i.putExtra("indirizzo",indirizzo);
-            i.putExtra("numero", numeroTelefonico);
-            i.putExtra("ricerca", ricerca);
+    public void openDettagli(){
+        Intent i = new Intent(this, PaginaStruttura.class);
+        i.putExtra("username", username);
+        i.putExtra("nomeStruttura", nomeStruttura);
+        i.putExtra("descrizione", descrizione);
+        i.putExtra("indirizzo",indirizzo);
+        i.putExtra("numero", numeroTelefonico);
+        i.putExtra("ricerca", ricerca);
 
-            startActivity(i);
-        }
+        startActivity(i);
+    }
 
     @Override
 
@@ -209,21 +207,27 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
                         //Converto la data a stringa
                         String strData = sdf.format(data);
 
-                        if(Anonimato(username) != 1){
-                            String query = "insert into recensioni values (NULL,'"+titolo+"','"+nomeStruttura+"','"+testoRecensione+"',"+valutazione+",'"+takeName(username)+" "+takeSurname(username)+"','"+strData+"',"+0+")";
+                        titolo = normalizza_parola(titolo);
 
-                            Log.d(TAG, "FATTA ");
-                            Statement stat = con.createStatement();
-                            stat.executeUpdate(query);
-                        }else{
-                            String query = "insert into recensioni values (NULL,'"+titolo+"','"+nomeStruttura+"','"+testoRecensione+"',"+valutazione+",'"+username+"','"+strData+"',"+0+")";
 
-                            Log.d(TAG, "FATTA ");
-                            Statement stat = con.createStatement();
-                            stat.executeUpdate(query);
+                        if (validita_testo(testoRecensione) == true) {
+                            if (Anonimato(username) != 1) {
+                                String query = "insert into recensioni values (NULL,'" + titolo + "','" + nomeStruttura + "','" + testoRecensione + "'," + valutazione + ",'" + takeName(username) + " " + takeSurname(username) + "','" + strData + "'," + 0 + ")";
+
+                                Statement stat = con.createStatement();
+                                stat.executeUpdate(query);
+                                z = "Recensione inviata con successo ed in attesa di conferma da parte dello staff!";
+                            } else {
+                                String query = "insert into recensioni values (NULL,'" + titolo + "','" + nomeStruttura + "','" + testoRecensione + "'," + valutazione + ",'" + username + "','" + strData + "'," + 0 + ")";
+
+                                Statement stat = con.createStatement();
+                                stat.executeUpdate(query);
+                                z = "Recensione inviata con successo ed in attesa di conferma da parte dello staff!";
+                            }
+                        } else {
+                            //z = "Testo irregolare!";
+                            Toast.makeText(getBaseContext(), "Testo irregolare, la recensione non è stata inviata", Toast.LENGTH_LONG).show();
                         }
-
-                        z="Recensione inviata con successo ed in attesa di conferma da parte dello staff. Riceverai una mail di vconferma nel momento della pubblicazione.";
                     }
                 }catch (Exception ex){
                     z = "Exception: " + ex;
@@ -238,5 +242,20 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
             Toast.makeText(getBaseContext(), ""+z, Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    public boolean validita_testo(String str){
+        int ascii;
+        for(int i=0;i<str.length();i++){
+            ascii = (int)str.charAt(i);
+            if(ascii<65 || ascii>122 ){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String normalizza_parola(String str){
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }
