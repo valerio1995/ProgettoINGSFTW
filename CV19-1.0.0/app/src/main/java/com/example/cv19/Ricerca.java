@@ -310,7 +310,7 @@ public class Ricerca extends AppCompatActivity implements AdapterView.OnItemSele
             if(con == null){
                 z = "Controlla la connessione ad internet...";
             }else{
-                String query = "select * from strutture where citta= '"+ricerca+"' ";
+                String query = "select * from strutture where citta LIKE '%"+ricerca+"%' ";
                 Statement stat = con.createStatement();
                 rs=stat.executeQuery(query);
                 while(rs.next()){
