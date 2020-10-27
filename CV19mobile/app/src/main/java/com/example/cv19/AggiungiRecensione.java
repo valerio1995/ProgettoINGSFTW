@@ -248,7 +248,7 @@ public class AggiungiRecensione extends AppCompatActivity implements AdapterView
         int ascii;
         for(int i=0;i<str.length();i++){
             ascii = (int)str.charAt(i);
-            if(ascii<65 || ascii>122 ){
+            if( (ascii<65 && ascii!=32) || (ascii>122 && ascii != 32) ){
                 return false;
             }
         }
