@@ -17,6 +17,7 @@ public class JUnitTest {
         assertEquals("Test", myVar.normalizza_parola("test"));
         assertEquals(" ", myVar.normalizza_parola(" "));
         assertEquals("@12/", myVar.normalizza_parola("@12/"));
+        assertEquals("Test con spazi", myVar.normalizza_parola("test con spazi"));
     }
 
     @Test
@@ -26,5 +27,7 @@ public class JUnitTest {
         //Asserts
         assertEquals(true, var.validita_testo("testo"));
         assertEquals(false, var.validita_testo("testo/80@"));
+        assertEquals(true, var.validita_testo("test con spazi"));
+        assertEquals(false, var.validita_testo("test con @spazi"));
     }
 }
